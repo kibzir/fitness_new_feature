@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var TextFieldOfDinner: UITextField!
     @IBOutlet weak var TextFieldBurnt: UITextField!
     
-    var AllKcal = [0, 0, 0]
+    var AllKcal = [0, 0, 0, 0, 0]
     var burnt = 0
    
     
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
         }
         TextFieldBurnt.resignFirstResponder()
         BurntLabel.text = "\(BurntKcal)"
-        let total = (AllKcal[0] +  AllKcal[1] + AllKcal[2]) - BurntKcal
+        let total = (AllKcal[1] +  AllKcal[2] + AllKcal[3]) - BurntKcal
         burnt = BurntKcal
         TotalLabel.text = "\(total)"
         
@@ -95,7 +95,7 @@ class ViewController: UIViewController {
     }
         TextFieldOfBreakfast.resignFirstResponder()
         BreakfastLabel.text = "\(BreakfastKcla)"
-        AllKcal[0] = BreakfastKcla
+        AllKcal[1] = BreakfastKcla
         calorieCounting()
         updateGraph()
         
@@ -114,7 +114,7 @@ class ViewController: UIViewController {
     }
         TextFieldOfLunch.resignFirstResponder()
         LunchLabel.text = "\(LunchKcla)"
-        AllKcal[1] = LunchKcla
+        AllKcal[2] = LunchKcla
         calorieCounting()
         updateGraph()
         
@@ -132,7 +132,7 @@ class ViewController: UIViewController {
     }
         TextFieldOfDinner.resignFirstResponder()
         DinnerLabel.text = "\(DinnerKcla)"
-        AllKcal[2] = DinnerKcla
+        AllKcal[3] = DinnerKcla
         calorieCounting()
         updateGraph()
         
@@ -157,22 +157,35 @@ class ViewController: UIViewController {
             }
         let line = LineChartDataSet(entries: lineChartEntry, label: "All calories")
         line.colors = [NSUIColor.blue]
+        line.mode = .cubicBezier
+        line.lineWidth = 2
+        line.circleColors = [NSUIColor.black]
+        line.circleHoleRadius = 0.1
+        line.circleRadius = 1.5
         let data = LineChartData()
         data.addDataSet(line)
         chtChart.data = data
+        chtChart.rightAxis.enabled = false
+        chtChart.leftAxis.enabled = false
+        chtChart.xAxis.enabled = false
+        
+        
+       
        
         
     }
     
     
     func calorieCounting() {
-        let total = (AllKcal[0] + AllKcal[1] + AllKcal[2]) - burnt
+        let total = (AllKcal[1] + AllKcal[2] + AllKcal[3]) - burnt
         TotalLabel.text = "\(total)"
-        let Eating =  AllKcal[0] +  AllKcal[1] + AllKcal[2]
+        let Eating =  AllKcal[1] +  AllKcal[2] + AllKcal[3]
         EatingLabel.text = "\(Eating)"
        }
     
     
 
 }
+
+
 
